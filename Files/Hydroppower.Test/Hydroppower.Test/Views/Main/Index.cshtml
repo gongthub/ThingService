@@ -1,0 +1,191 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    @using (Html.BeginForm("Index", "main", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        <div>
+            <input type="text" name="money" id="txtMoney" />
+            <input type="submit" value="充值" />
+        </div>
+    }
+    <br/>
+    AJAX调用 根据表号充值
+    <div>
+        表号：<input type="text" id="txtmeterNo" value="201603162336" />
+        金额：<input type="text" id="txtMoneys" value="" />
+        <input type="button" value="充值" onclick="btnReCharge()" />
+    </div>  
+
+    <br />
+      AJAX调用 根据表号退费
+    <div>
+        表号：<input type="text" id="txtmeterNoR" value="201603162336" />
+        金额：<input type="text" id="txtMoneysR" value="" />
+        <input type="button" value="退费" onclick="btnReChargeR()" />
+    </div>
+
+    <br />
+    AJAX调用 根据表号控制
+    <div>
+        表号：<input type="text" id="txtmeterNoA" value="201603162336" />
+        操作：<select id="selAction">
+        <option value="0">关闭</option>
+               <option value="1">开启</option>
+        </select>
+        <input type="button" value="确认" onclick="btnReChargeA()" />
+    </div>
+
+    <br />
+    AJAX调用 根据表号发送短信
+    <div>
+        表号：<input type="text" id="txtmeterNoS" value="201603162336" /> 
+        <input type="button" value="确认" onclick="btnReChargeS()" />
+    </div>
+
+    <br />
+    AJAX调用 根据表号抄表
+    <div>
+        表号：<input type="text" id="txtmeterNoC" value="201603162336" />
+        <input type="button" value="确认" onclick="btnReChargeC()" />
+    </div>
+
+
+    <br />
+    AJAX调用 根据时间段读数
+    <div>
+        开始时间：<input type="date" id="deStart" />      
+          结束时间：<input type="date" id="deEnd" />
+        <input type="button" value="确认" onclick="btnReChargeData()" />
+    </div>
+
+</body>
+</html>
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script type="text/javascript">
+
+    //充值
+    function btnReCharge() { 
+        var meterNos = $("#txtmeterNo").val();
+        var moneys = $("#txtMoneys").val(); 
+
+        var datas = { meterNo: meterNos, money: moneys };
+        $.ajax({
+            type: 'post',
+            url: '/Main/ReCharge',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+
+    //退费
+    function btnReChargeR() {
+        var meterNos = $("#txtmeterNoR").val();
+        var moneys = $("#txtMoneysR").val();
+
+        var datas = { meterNo: meterNos, money: moneys };
+        $.ajax({
+            type: 'post',
+            url: '/Main/RefundByMeterNo',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+    //控制
+    function btnReChargeA() {
+        var meterNos = $("#txtmeterNoA").val();
+        var actions = $("#selAction").val();
+
+        var datas = { meterNo: meterNos, action: actions };
+        $.ajax({
+            type: 'post',
+            url: '/Main/MbusControlByMeterNo',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+
+    //发送短信
+    function btnReChargeS() {
+        var meterNos = $("#txtmeterNoS").val();
+
+        var datas = { meterNo: meterNos};
+        $.ajax({
+            type: 'post',
+            url: '/Main/SendSmsByMeterNo',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+
+    //根据表号抄表
+    function btnReChargeC() {
+        var meterNos = $("#txtmeterNoC").val();
+
+        var datas = { meterNo: meterNos };
+        $.ajax({
+            type: 'post',
+            url: '/Main/ReadByMeterNo',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+
+    //根据表号抄表
+    function btnReChargeData() {
+        var startDates = $("#deStart").val();
+        var endDates = $("#deEnd").val();
+
+        var datas = { startDate: startDates, endDate: endDates };
+        $.ajax({
+            type: 'post',
+            url: '/Main/FindReadInfoByDate',
+            data: datas,
+            dataType: 'json',
+            success: function (data) {
+                var da = eval(data);
+                alert(data.state);
+                alert(data.msg);
+            }
+        });
+
+    }
+</script>

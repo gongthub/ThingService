@@ -1,0 +1,16 @@
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\Vlinker.Common.ApiInvoker4.0.0.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Net.Http.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Web.Http.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Net.Http.Formatting.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\Newtonsoft.Json.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Net.Http.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Web.Http.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\System.Net.Http.Formatting.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\zh-Hans\System.Net.Http.resources.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\zh-Hans\System.Web.Http.resources.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\bin\Debug\zh-Hans\System.Net.Http.Formatting.resources.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\obj\Debug\Vlinker.Common.ApiInvoker4.0.0.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\obj\Debug\Vlinker.Common.ApiInvoker4.0.0.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker4.0.0\obj\Debug\Vlinker.Common.ApiInvoker4.0.0.csprojResolveAssemblyReference.cache

@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=301879
+  -->
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+    <section name="RedisHostRes" type="System.Configuration.NameValueSectionHandler" />
+    <section name="unity" type="Microsoft.Practices.Unity.Configuration.UnityConfigurationSection, Microsoft.Practices.Unity.Configuration, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+  </configSections>
+  <appSettings>
+    <add key="TokenExpire" value="5" />
+    <!-- 发送短信-->
+    <!--发短信请求的地址-->
+    <add key="SMSPostUrl" value="http://sms.chanzor.com:8001/sms.aspx?action=send"/>
+    <!--用户账号-->
+    <add key="SMSAccount" value="Vlingdi"/>
+    <!--用户密码-->
+    <add key="SMSPassword" value="152928"/>
+
+    <!--超仪接口用户-->
+    <add key="JoyClientId" value="joy000001"/>
+
+    <!--超仪RSA公钥-->
+    <add key="JoyRSAPUBLIC" value="lB4WtWGYehZg3A+RcVVJyl3Cxn8GdWGxS4Ya+jN+BzJ17pDucVpOa80Ea7FtKqxKZq1AsoRlaQ8MPM/9i/vM9w=="/>
+    
+    <add key="SMSSetPwdContent" value="您在V领地青年创客社区的房门密码:{0}，密码有效期:{1},请妥善保管好您的密码以防失窃和相关财产损失 【V领地】"/>
+    <add key="SMSRemoteOpenDoorContent" value="您在V领地青年创客社区的房门使用了远程开门功能，如非本人操作请及时联系社区工作人员 【V领地】"/>
+    <add key="SMSCheckInAuthContent" value="您在V领地青年创客社区的房门已授权，授权有效期:{0},如非本人操作请及时联系社区工作人员 【V领地】"/>    
+  </appSettings>
+
+  <RedisHostRes>
+    <add key="ReadWriteHosts" value="127.0.0.1:6379" />
+    <add key="ReadOnlyHosts" value="127.0.0.1:6379" />
+    <add key="ConnectTimeout" value="100" />
+    <add key="MaxWritePoolSize" value="100" />
+    <add key="MaxReadPoolSize" value="100" />    
+  </RedisHostRes>
+
+  <connectionStrings>
+    <add name="SmartHomeDbContext" connectionString="Data Source=.;User Id=sa;Password=1234567890;Database=SmartHome;" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  
+  <system.web>
+    <authentication mode="None" />
+    <compilation debug="true" targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" maxRequestLength="102400" executionTimeout="240" />
+  </system.web>
+
+  <unity>
+    <containers>
+      <container>
+        <types>
+          <type name="JoyHydroppower" type="Vlinker.SmartHome.Service.Interface.IHydropowerService,Vlinker.SmartHome.Service" mapTo="Vlinker.SmartHome.Service.Services.JoyHydroppowerService,Vlinker.SmartHome.Service" />
+          <type name="YunyouDoorLock" type="Vlinker.SmartHome.Service.Interface.IDoorLockService,Vlinker.SmartHome.Service" mapTo="Vlinker.SmartHome.Service.Services.YunyouDoorLockService,Vlinker.SmartHome.Service" />
+          <type name="DingdingDoorLock" type="Vlinker.SmartHome.Service.Interface.IDoorLockService,Vlinker.SmartHome.Service" mapTo="Vlinker.SmartHome.Service.Services.YunyouDoorLockService,Vlinker.SmartHome.Service" />
+          <type name="ISMSService" type="Vlinker.SmartHome.Service.Interface.ISMSService,Vlinker.SmartHome.Service" mapTo="Vlinker.SmartHome.Service.Services.SMSService,Vlinker.SmartHome.Service" />
+        </types>
+      </container>
+    </containers>
+  </unity>
+  
+  <system.webServer>
+    <!--<httpProtocol>
+      <customHeaders>
+        <add name="Access-Control-Allow-Origin" value="*" />
+        <add name="Access-Control-Allow-Headers" value="*" />
+        <add name="Access-Control-Allow-Methods" value="GET, POST, PUT, DELETE" />
+      </customHeaders>
+    </httpProtocol>-->
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <remove name="OPTIONSVerbHandler" />
+      <remove name="TRACEVerbHandler" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+    <validation validateIntegratedModeConfiguration="false" />
+  </system.webServer>
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Owin.Security" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Owin.Security.OAuth" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Owin.Security.Cookies" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Microsoft.Owin" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-3.0.1.0" newVersion="3.0.1.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="Newtonsoft.Json" culture="neutral" publicKeyToken="30ad4fe6b2a6aeed" />
+        <bindingRedirect oldVersion="0.0.0.0-6.0.0.0" newVersion="6.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Optimization" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-1.1.0.0" newVersion="1.1.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Helpers" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Mvc" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.WebPages" publicKeyToken="31bf3856ad364e35" />
+        <bindingRedirect oldVersion="1.0.0.0-3.0.0.0" newVersion="3.0.0.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Cors" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Net.Http.Formatting" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>
+      <dependentAssembly>
+        <assemblyIdentity name="System.Web.Http" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-5.2.3.0" newVersion="5.2.3.0" />
+      </dependentAssembly>      
+    </assemblyBinding>
+  </runtime>
+  <!--<system.codedom>
+    <compilers>
+      <compiler language="c#;cs;csharp" extension=".cs" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.CSharpCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:6 /nowarn:1659;1699;1701" />
+      <compiler language="vb;vbs;visualbasic;vbscript" extension=".vb" type="Microsoft.CodeDom.Providers.DotNetCompilerPlatform.VBCodeProvider, Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" warningLevel="4" compilerOptions="/langversion:14 /nowarn:41008 /define:_MYTYPE=\&quot;Web\&quot; /optionInfer+" />
+    </compilers>
+  </system.codedom>-->
+</configuration>

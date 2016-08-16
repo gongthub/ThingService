@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.SmartHome.WebService", "Vlinker.SmartHome.WebService\Vlinker.SmartHome.WebService.csproj", "{15E13007-4291-4974-9BFE-61048A2F397B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.SmartHome.Model", "Vlinker.SmartHome.Model\Vlinker.SmartHome.Model.csproj", "{3B5284B2-44B8-48F9-B8FD-2F3944246A67}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.SmartHome.Service", "Vlinker.SmartHome.Service\Vlinker.SmartHome.Service.csproj", "{E7FFD366-C2A7-4922-A7D5-BB080D2C3586}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.SmartHome.Util", "Vlinker.SmartHome.Util\Vlinker.SmartHome.Util.csproj", "{E2E34456-944A-48E6-94ED-191A0F19BFC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.Common.ApiInvoker", "Vlinker.Common.ApiInvoker\Vlinker.Common.ApiInvoker.csproj", "{16370FCE-97C9-44E4-B08A-454257A9E065}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vlinker.WebService.Common", "Vlinker.WebService.Common\Vlinker.WebService.Common.csproj", "{C7A35191-4FDA-447B-99B1-13B49C988305}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15E13007-4291-4974-9BFE-61048A2F397B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15E13007-4291-4974-9BFE-61048A2F397B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15E13007-4291-4974-9BFE-61048A2F397B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15E13007-4291-4974-9BFE-61048A2F397B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B5284B2-44B8-48F9-B8FD-2F3944246A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B5284B2-44B8-48F9-B8FD-2F3944246A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B5284B2-44B8-48F9-B8FD-2F3944246A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B5284B2-44B8-48F9-B8FD-2F3944246A67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7FFD366-C2A7-4922-A7D5-BB080D2C3586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7FFD366-C2A7-4922-A7D5-BB080D2C3586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7FFD366-C2A7-4922-A7D5-BB080D2C3586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7FFD366-C2A7-4922-A7D5-BB080D2C3586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2E34456-944A-48E6-94ED-191A0F19BFC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2E34456-944A-48E6-94ED-191A0F19BFC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2E34456-944A-48E6-94ED-191A0F19BFC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2E34456-944A-48E6-94ED-191A0F19BFC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16370FCE-97C9-44E4-B08A-454257A9E065}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16370FCE-97C9-44E4-B08A-454257A9E065}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16370FCE-97C9-44E4-B08A-454257A9E065}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16370FCE-97C9-44E4-B08A-454257A9E065}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7A35191-4FDA-447B-99B1-13B49C988305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7A35191-4FDA-447B-99B1-13B49C988305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7A35191-4FDA-447B-99B1-13B49C988305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7A35191-4FDA-447B-99B1-13B49C988305}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Vlinker.SmartHome.Model.DTO
+{
+    public class HydroppowerOperation
+    {
+        /// <summary>
+        /// 供应商编码
+        /// </summary>
+        public string SupplierCode { get; set; }
+        /// <summary>
+        ///  门店编码
+        /// </summary>
+        public string StoreCode { get; set; }
+        /// <summary>
+        /// 房间号
+        /// </summary>
+        public string RoomCode { get; set; }
+        /// <summary>
+        /// 表号
+        /// </summary>
+        public string MeterNo { get; set; }
+         
+        /// <summary>
+        /// 金额
+        /// </summary>
+        public decimal Money { get; set; }
+
+        /// <summary>
+        /// token
+        /// </summary>
+        public string access_token { get; set; }
+         
+        /// <summary>
+        /// 操作类型
+        /// </summary>
+        public int Action { get; set; }
+
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public DateTime StartTime { get; set; }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public DateTime EndTime { get; set; }
+        /// <summary>
+        /// 充值数据
+        /// </summary>
+        public Model.Hydropower.ReCharge reCharge { get; set; }
+
+    }
+}

@@ -1,0 +1,11 @@
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\Vlinker.Common.ApiInvoker.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\Vlinker.Common.ApiInvoker.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\Newtonsoft.Json.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\System.Net.Http.Formatting.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\System.Web.Http.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\Newtonsoft.Json.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\System.Net.Http.Formatting.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\bin\Debug\System.Web.Http.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\obj\Debug\Vlinker.Common.ApiInvoker.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\obj\Debug\Vlinker.Common.ApiInvoker.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.Common.ApiInvoker\obj\Debug\Vlinker.Common.ApiInvoker.csprojResolveAssemblyReference.cache

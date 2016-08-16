@@ -1,0 +1,8 @@
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\bin\Debug\Vlinker.SmartHome.Model.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\bin\Debug\Vlinker.SmartHome.Model.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\bin\Debug\EntityFramework.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\bin\Debug\EntityFramework.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\obj\Debug\Vlinker.SmartHome.Model.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\obj\Debug\Vlinker.SmartHome.Model.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Model\obj\Debug\Vlinker.SmartHome.Model.csprojResolveAssemblyReference.cache

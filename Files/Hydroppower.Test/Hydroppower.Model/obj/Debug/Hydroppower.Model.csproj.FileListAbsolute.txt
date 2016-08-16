@@ -1,0 +1,7 @@
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\bin\Debug\Hydroppower.Model.dll
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\bin\Debug\Hydroppower.Model.pdb
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\bin\Debug\EntityFramework.dll
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\obj\Debug\Hydroppower.Model.dll
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\obj\Debug\Hydroppower.Model.pdb
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\bin\Debug\EntityFramework.xml
+D:\WorkFiles\ThingService\Files\Hydroppower.Test\Hydroppower.Model\bin\Debug\zh-Hans\EntityFramework.resources.dll

@@ -1,0 +1,184 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Vlinker.SmartHome.Model.DTO;
+using Vlinker.SmartHome.Service.Interface;
+using Vlinker.SmartHome.Util;
+
+namespace Vlinker.SmartHome.WebService.Controllers
+{
+    public class HydropowerController : Controller
+    {
+        public const string BizCode = "Hydroppower";
+
+        /// <summary>
+        /// 充值
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ReCharge()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                HydroppowerOperation operation = JsonConvert.DeserializeObject<HydroppowerOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("充值开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IHydropowerService service = UnityContainerUtil.ResolveInstance<IHydropowerService>(operation.SupplierCode + BizCode);
+                 Model.Hydropower.ReCharge reCharge=new Model.Hydropower.ReCharge();
+                 result = service.RechargeByMeterNo(operation, out reCharge);
+
+                CommonUtil.Log.Info(string.Format(result.desc == null ? "" : result.desc));
+                CommonUtil.Log.Info(string.Format("充值结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("充值结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 控制继电器
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult MbusControlByMeterNo()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                HydroppowerOperation operation = JsonConvert.DeserializeObject<HydroppowerOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("控制继电器开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IHydropowerService service = UnityContainerUtil.ResolveInstance<IHydropowerService>(operation.SupplierCode + BizCode);
+             
+                result = service.MbusControlByMeterNo(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc == null ? "" : result.desc));
+                CommonUtil.Log.Info(string.Format("控制继电器结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("控制继电器结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 发送短信
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SendSmsByMeterNo()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                HydroppowerOperation operation = JsonConvert.DeserializeObject<HydroppowerOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("发送短信开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IHydropowerService service = UnityContainerUtil.ResolveInstance<IHydropowerService>(operation.SupplierCode + BizCode);
+
+                result = service.SendSmsByMeterNo(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc == null ? "" : result.desc));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 根据表号抄表
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ReadByMeterNo()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                HydroppowerOperation operation = JsonConvert.DeserializeObject<HydroppowerOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("发送短信开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IHydropowerService service = UnityContainerUtil.ResolveInstance<IHydropowerService>(operation.SupplierCode + BizCode);
+                Model.Hydropower.JoyData joyData = new Model.Hydropower.JoyData();
+                result = service.ReadByMeterNo<Model.Hydropower.JoyData>(operation, out joyData);
+                result = service.AddDatas(joyData);
+
+                CommonUtil.Log.Info(string.Format(result.desc == null ? "" : result.desc));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 根据时间段获取数据
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult FindReadInfoByDate()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                HydroppowerOperation operation = JsonConvert.DeserializeObject<HydroppowerOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("发送短信开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IHydropowerService service = UnityContainerUtil.ResolveInstance<IHydropowerService>(operation.SupplierCode + BizCode);
+                List<Model.Hydropower.JoyData> joyDatas = new List<Model.Hydropower.JoyData>();
+                result = service.FindReadInfoByDate<List<Model.Hydropower.JoyData>>(operation, out joyDatas);
+                result = service.AddDatas(joyDatas);
+            
+                CommonUtil.Log.Info(string.Format(result.desc == null ? "" : result.desc));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("发送短信结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+    }
+}

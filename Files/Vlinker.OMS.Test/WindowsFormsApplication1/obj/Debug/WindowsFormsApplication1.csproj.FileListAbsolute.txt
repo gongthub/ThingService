@@ -1,0 +1,17 @@
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csprojResolveAssemblyReference.cache
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+F:\OMS\trunk\Vlinker.OMS.Test\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+D:\WorkFiles\ThingService\Files\Vlinker.OMS.Test\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache

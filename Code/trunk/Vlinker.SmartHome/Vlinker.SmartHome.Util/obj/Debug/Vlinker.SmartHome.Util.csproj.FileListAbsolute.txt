@@ -1,0 +1,11 @@
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Vlinker.SmartHome.Util.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Vlinker.SmartHome.Util.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Microsoft.Practices.Unity.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\obj\Debug\Vlinker.SmartHome.Util.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\obj\Debug\Vlinker.SmartHome.Util.pdb
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\NLog.dll
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\bin\Debug\NLog.xml
+D:\WorkFiles\ThingService\Code\trunk\Vlinker.SmartHome\Vlinker.SmartHome.Util\obj\Debug\Vlinker.SmartHome.Util.csprojResolveAssemblyReference.cache

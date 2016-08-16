@@ -1,0 +1,430 @@
+﻿using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Vlinker.Common.ApiInvoker;
+using Vlinker.SmartHome.Model.Context;
+using Vlinker.SmartHome.Model.DTO;
+using Vlinker.SmartHome.Model.Hydropower;
+using Vlinker.SmartHome.Service.Abstract;
+using Vlinker.SmartHome.Util;
+
+namespace Vlinker.SmartHome.Service.Services
+{
+    public class JoyHydroppowerService : AcstractHydroppowerService
+    {
+        [InjectionConstructor]
+        public JoyHydroppowerService() { }
+
+
+        /// <summary>
+        /// 根据表号充值
+        /// </summary>
+        /// <param name="meterNo">表号</param>
+        /// <param name="money">充值金额</param>
+        /// <returns></returns>
+        public override Result RechargeByMeterNo(HydroppowerOperation operation)
+        {
+
+            string tokens = GetJoyToken();
+
+            Result result = new Result() { success = false, desc = "" };
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/rechargeByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo },
+                { "money", operation.Money.ToString()} 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// 根据表号充值并返回充值数据
+        /// </summary>
+        /// <param name="meterNo"></param>
+        /// <param name="money"></param>
+        /// <param name="joyReChange">返回数据</param>
+        /// <returns></returns>
+        public override Result RechargeByMeterNo(HydroppowerOperation operation, out Model.Hydropower.ReCharge reCharge)
+        {
+            reCharge = new Model.Hydropower.ReCharge();
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/rechargeByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo },
+                { "money", operation.Money.ToString()} 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            reCharge = JsonConvert.DeserializeObject<Model.Hydropower.ReCharge>(result.desc);
+            reCharge.Type = 0;
+            return result;
+        }
+
+        /// <summary>
+        /// 根据表号退费
+        /// </summary>
+        /// <param name="meterNo">表号</param>
+        /// <param name="money">退费金额</param>
+        /// <returns></returns>
+        public override Result RefundByMeterNo(HydroppowerOperation operation)
+        {
+            Result result = new Result() { success = false, desc = "" };
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/refundByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo },
+                { "money", operation.Money.ToString()} 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+
+        }
+
+        /// <summary>
+        /// 根据表号退费并返回退费数据
+        /// </summary>
+        /// <param name="meterNo"></param>
+        /// <param name="money"></param>
+        /// <param name="joyReChange">返回数据</param>
+        /// <returns></returns>
+        public override Result RefundByMeterNo(HydroppowerOperation operation, out Model.Hydropower.ReCharge reCharge)
+        {
+            reCharge = new Model.Hydropower.ReCharge();
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/refundByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo },
+                { "money", operation.Money.ToString()} 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            reCharge = JsonConvert.DeserializeObject<Model.Hydropower.ReCharge>(result.desc);
+            reCharge.Type = 1;
+            return result;
+        }
+
+        /// <summary>
+        /// 添加充值数据
+        /// </summary>
+        /// <param name="reChange">充值数据</param>
+        /// <returns></returns>
+        public override Result AddReChange(HydroppowerOperation operation)
+        {
+
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                operation.reCharge.SupplierCode = operation.SupplierCode;
+                operation.reCharge.Times = DateTime.Now;
+                operation.reCharge.RechargeMoney = operation.reCharge.Money;
+                SmartHomeDbContext context = new SmartHomeDbContext();
+                context.ReCharges.Add(operation.reCharge);
+                context.SaveChanges();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.desc = ex.Message;
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// 根据表号控制继电器
+        /// </summary>
+        /// <param name="meterNo">表号</param>
+        /// <param name="action">action:动作(1: 强制开阀（闸） 0: 强制关阀（闸）)</param>
+        /// <returns></returns>
+        public override Result MbusControlByMeterNo(HydroppowerOperation operation)
+        {
+
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/mbusControlByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo },
+                { "action", operation.Action.ToString()} 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 根据表号发送短信
+        /// </summary>
+        /// <param name="meterNo">表号</param>
+        /// <returns></returns>
+        public override Result SendSmsByMeterNo(HydroppowerOperation operation)
+        {
+
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/sendSmsByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo } 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 根据表号读取抄表数据
+        /// </summary>
+        /// <param name="meterNo"></param>
+        /// <returns></returns>
+        public override Result ReadByMeterNo<T>(HydroppowerOperation operation, out T t)
+        {
+            t = default(T);
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/readByMeterNo.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "meterNo", operation.MeterNo } 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+            t = JsonConvert.DeserializeObject<T>(result.desc);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 根据开始结束时间读取抄表数据
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
+        /// <returns></returns>
+        public override Result FindReadInfoByDate<T>(HydroppowerOperation operation, out T t)
+        {
+
+            t = default(T);
+            Result result = new Result();
+
+            string vlidResult = DataValidate(operation);
+
+            if (vlidResult != "") new Result() { success = false, desc = vlidResult };
+
+            if (operation.MeterNo == "")
+            {
+                result.desc = "表号不能为空";
+                return result;
+            }
+            string api = string.Format(@"/vlinker/user/findReadInfoByDate.do");
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "startDate", operation.StartTime.ToString("yyyy-MM-dd") },
+                { "endDate", operation.EndTime.ToString("yyyy-MM-dd") } 
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            JoyResultDatas joyResultDatas = JsonConvert.DeserializeObject<JoyResultDatas>(result.desc);
+
+            t = JsonConvert.DeserializeObject<T>(joyResultDatas.readInfo.ToString());
+
+
+            return result;
+        }
+
+
+        /// <summary>
+        /// 添加读数数据
+        /// </summary> 
+        /// <returns></returns>
+        public override Result AddDatas(JoyData joyData)
+        {
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                SmartHomeDbContext context = new SmartHomeDbContext();
+                if (joyData != null)
+                {
+                    context.JoyDatas.Add(joyData);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    result.success = false;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.desc = ex.Message;
+                return result;
+            }
+        }
+
+
+        /// <summary>
+        /// 添加读数数据
+        /// </summary> 
+        /// <returns></returns>
+        public override Result AddDatas(List<JoyData> joyDatas)
+        {
+
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                SmartHomeDbContext context = new SmartHomeDbContext();
+                if (joyDatas != null && joyDatas.Count > 0)
+                {
+                    foreach (JoyData joyData in joyDatas)
+                    {
+                        context.JoyDatas.Add(joyData);
+                    }
+                    context.SaveChanges();
+                }
+                else
+                {
+                    result.success = false;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                result.success = false;
+                result.desc = ex.Message;
+                return result;
+            }
+        }
+
+        private Result WebApiInvokePost(string api, Dictionary<string, string> requestParam)
+        {
+            string tokens = GetJoyToken();
+            requestParam.Add("access_token", tokens);
+            Result result = new Result() { success = true, desc ="" };
+
+            try
+            {
+                WebApiInvoker ApiInvoker = new WebApiInvoker(supplierConfig.ServiceUrl);
+                string postResult = ApiInvoker.InvokePostRequest(api, requestParam).Result.ToString();
+
+                JoyResult joyResult = JsonConvert.DeserializeObject<JoyResult>(postResult);
+                result = new Result() { success = joyResult.status, desc = joyResult.data.ToString() };
+            }
+            catch (Exception e)
+            {
+                new Result() { success = false, desc = e.Message };
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 获取超仪Token
+        /// </summary>
+        /// <returns></returns>
+        private string GetJoyToken()
+        {
+            string publickeys = System.Configuration.ConfigurationSettings.AppSettings["JoyRSAPUBLIC"].ToString();
+            string clients = System.Configuration.ConfigurationSettings.AppSettings["JoyClientId"].ToString();
+            string time = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string str = @"{'client_id':'" + clients + "','datetime':'" + time + "'}";
+
+            string publickey = @"<RSAKeyValue><Modulus>" + publickeys + "</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
+            string tokens = CommonUtil.RSAEncrypt(publickey, str);
+            return tokens;
+        }
+
+    }
+}

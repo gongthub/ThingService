@@ -1,0 +1,468 @@
+﻿@model Vlinker.Common.ApiInvoker.LoginViewModel
+
+@{
+    ViewBag.Title = "登录";
+}
+@*<script src="/Scripts/jquery-1.10.2.min.js" ></script>*@
+<script src="/Scripts/jquery.min.js"></script>
+<script src="/Scripts/jquery.cookie.js"></script>
+<script src="/Scripts/SecurityDES.js"></script>
+<script src="/Scripts/jquery.md5.js"></script>
+
+<h2>@ViewBag.Title。</h2>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>使用本地帐户登录。</h4>
+                <hr />
+                @Html.ValidationSummary(true)
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <div class="checkbox">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            @Html.LabelFor(m => m.RememberMe)
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="登录" class="btn btn-default" />
+                    </div>
+                </div>
+                <p>
+                    @*@Html.ActionLink("注册", "Register")(如果你没有本地帐户)。*@
+                </p>
+            }
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @*@Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })*@
+        </section>
+    </div>
+</div>
+
+
+@*<div>
+    <h1>@ViewBag.Title  Welcome</h1>
+</div>*@
+
+    @*@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
+<br />
+<br />
+<hr />
+<button onclick="AccessToken()">获取Token</button>
+<button onclick="RefreshToken()">刷新Token</button>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<button onclick="JSAccessToken()">JS获取Token</button>
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+<button onclick="JSRefreshToken()">JS刷新Token</button>
+
+<br />
+<br />
+<hr />
+<button id="Apartment" onclick="Apartment()">同步房源</button>
+<br />
+<br />
+<hr />
+
+<button id="OpenDoor" onclick="OpenDoor()">远程开门</button>
+&nbsp;&nbsp;&nbsp;
+<button id="OpenDoor" onclick="JSOpenDoor()">JS远程开门</button>
+&nbsp;&nbsp;&nbsp;
+<button id="OpenDoorLog" onclick="OpenDoorLog()">开门日志</button>
+<br />
+<br />
+<br />
+<label>手机：</label><input id="PhoneAuth" />
+&nbsp;&nbsp;&nbsp;
+<button id="Auth" onclick="Auth()">授权</button>
+&nbsp;&nbsp;&nbsp;
+<button id="RemoveAuth" onclick="RemoveAuth()">取消授权</button>
+<br />
+<br />
+<br />
+<label>密码：</label><input id="PasswordValue" />
+<label>手机：</label><input id="PhoneValue" />
+<button onclick="SetPassword()">设置密码</button>
+<button onclick="DelPassword()">删除密码</button>
+<br />
+<br />
+<hr />
+<div id="messageArea" style="color:red;font-size:large"></div>
+
+<br />
+<br />
+<hr />
+
+<button onclick="LoadImage()">加载图片</button>
+<input name="myfile" type="file" id="upfile" onchange="previewStorePaymentImageFun(this);" />
+
+<form id="fileForm">
+
+</form>
+<div id="previewStorePayment" style="height:100px;border:thin;color:red">
+    <img id="StorePaymentImgHead" style="width: 100%; margin-top: 0px; font-size: .9em;" src="" />
+</div>
+
+<script>
+
+    function OpenDoor() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("OpenDoor1", "Account")',
+            traditional: true
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function OpenDoorLog() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("OpenDoorLog", "Account")',
+            traditional: true
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            }
+
+        });
+    }
+
+    function Auth() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("Auth1", "Account")',
+            traditional: true,
+            data: { phone: $("#PhoneAuth").val() }
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function RemoveAuth() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("RemoveAuth1", "Account")',
+            traditional: true,
+            data: { phone: $("#PhoneAuth").val() }
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function SetPassword() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("SetPassword1", "Account")',
+            traditional: true,
+            data: {
+                phone: $("#PhoneValue").val(),
+                password: $("#PasswordValue").val()
+            }
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function DelPassword() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("DelPassword1", "Account")',
+            traditional: true,
+            data: {
+                phone: $("#PhoneValue").val()
+            }
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function Apartment() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("Apartment1", "Account")',
+            traditional: true
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function RefreshToken() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("RefreshTokenAction", "Account")',
+            traditional: true
+        }).done(function (result) {
+            if (result.success == true) {
+                alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function AccessToken() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: '@Url.Action("AccessTokenAction", "Account")',
+            traditional: true
+        }).done(function (result) {
+            if (result.success == true) {
+                //decodeURI()
+                //alert(getCookie("MyApp_uuid"));
+                //$.cookie("MyApp_uuid")
+                //jsdecrypt("MyAppSso", "123");
+
+                //alert(jsencrypt("MyAppSso", "123"));
+
+                //alert($.cookie("MyApp_uuid"));
+                var time = new Date();
+                var str = time.getFullYear() + (time.getMonth() + 1) + time.getDate() + (time.getHours() > 9 ? '' : '0') + time.getHours() + (time.getMinutes() > 9 ? '' : '0') + time.getMinutes() + (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
+                alert(str)
+
+                //var time = new Date();
+                //document.getElementById('time').innerHTML = time.getFullYear() + (time.getMonths() + 1) + time.getDate() + (time.getHours() > 9 ? '' : '0') + time.getHours() + (time.getMinutes() > 9 ? '' : '0') + time.getMinutes() + (time.getSeconds() > 9 ? '' : '0') + time.getSeconds()
+
+                //alert(decodeURI(jsdecrypt("MyAppSso", $.cookie("MyApp_uuid"))));
+                alert(decodeURI( $.cookie("MyApp_uuid")));
+
+                //alert(decodeURIComponent($.cookie("MyApp_uuid")));
+                //alert($.cookie("MyApp_uuid"));
+                //alert(document.cookie.length);
+                //alert("操作成功!");
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function getCookie(key) {
+        if (key == null)
+            return null;
+        if (Object.prototype.toString.call(key) == '[object String]' || Object.prototype.toString.call(key) == '[object Number]') {
+            var arrStr = document.cookie.split(";");
+            for (var i = 0; i < arrStr.length; i++) {
+                var temp = arrStr[i].split("=");
+                if (temp[0] == key)
+                    return unescape(temp[1]);
+            }
+            return null;
+        }
+        return null;
+    }
+
+    var userInfo = null;
+
+    function JSAccessToken() {
+
+        var time = new Date();
+        var timestamp = time.getFullYear() + "" + ((time.getMonth() + 1) > 9 ? '' : '0') + (time.getMonth() + 1) + "" + ((time.getDate()) > 9 ? '' : '0') + (time.getDate()) + (time.getHours() > 9 ? '' : '0') + time.getHours() + (time.getMinutes() > 9 ? '' : '0') + time.getMinutes() + (time.getSeconds() > 9 ? '' : '0') + time.getSeconds();
+        var screct = $.md5(timestamp + "Vlinker");
+
+        $("#messageArea").html(timestamp + "Vlinker" + "====" + screct);
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: 'http://localhost:17990/Api/User/Login',
+            data: {
+                UserName: "Yunyou",
+                Password: screct,
+                grant_type: "password",
+            },
+            traditional: true
+        }).done(function (result) {
+            if (result.access_token != undefined) {
+                userInfo = result;
+
+                $.cookie("MyApp_uuid", JSON.stringify(userInfo));
+
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function JSRefreshToken() {
+        alert(userInfo.refresh_token);
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: 'http://localhost:17990/Api/User/Login',
+            data: {
+                refresh_token: userInfo.refresh_token,
+                grant_type:"refresh_token"
+            },
+            traditional: true
+        }).done(function (result) {
+            if (result.access_token != undefined) {
+                userInfo = result;
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    function JSOpenDoor() {
+        alert(userInfo.refresh_token);
+        var strJson = "{'SupplierCode':'Yunyou','StoreCode':'SH001','DoorType':'2','RoomCode':'888','SubDoorCode':'A','OperatorPhone':'13477063093'}";
+
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: 'http://localhost:17990/DoorLock/RemoteOpenDoor',
+            headers: {
+                Authorization: userInfo.token_type + " " + userInfo.access_token
+            },
+            data: { 
+                jsonData: strJson 
+            },
+            traditional: true
+        }).done(function (result) {
+            if (result.access_token != undefined) {
+                userInfo = result;
+            } else {
+                alert("操作失败:" + result.desc);
+            }
+        });
+    }
+
+    var WshShell = new ActiveXObject("WScript.Shell");
+
+    function LoadImage() {
+        
+        //setTimeout('document.all.myfile.focus();WshShell.sendKeys("C:/java/sdfs/11/11.jpg");', 20);
+
+        $("#upfile").focus();
+        WshShell.sendKeys("C:/java/sdfs/11/11.jpg");
+
+        //previewStorePaymentImageFun($("#upfile"));
+
+        //setTimeout('$("#upfile").focus();WshShell.sendKeys("D:/temp.jpg");', 10);
+
+        //setTimeout(
+        //    previewStorePaymentImageFun($("#upfile"))
+        //    , 2000);        
+    }
+
+    var ImgObj = new Image();
+    var previewStorePaymentImageFun = function (file) {
+
+        $("#previewStorePayment").show();
+        var MAXWIDTH = $(document.body).width() - 10;
+        var MAXHEIGHT = $(document.body).width() - 10;
+        var div = document.getElementById('previewStorePayment');
+
+        if (file.files && file.files[0]) {
+            div.innerHTML = '<img id=StorePaymentImgHead>';
+            var img = document.getElementById('StorePaymentImgHead');
+            img.onload = function () {
+                var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+                img.width = rect.width;
+                img.height = rect.height;
+            }
+            var reader = new FileReader();
+            reader.onload = function (evt) { img.src = evt.target.result; }
+            reader.readAsDataURL(file.files[0]);
+        }
+        else //兼容IE
+        {
+            var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+            file.select();
+            var src = document.selection.createRange().text;
+            src = "D:/temp.jpg";
+            //div.innerHTML = '<img id=StorePaymentImgHead>';
+            var img = document.getElementById('StorePaymentImgHead');
+            //img.filters.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+            img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src='" + src + "')";
+            var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);
+            status = ('rect:' + rect.top + ',' + rect.left + ',' + rect.width + ',' + rect.height);
+            //style = "width:" + rect.width + "px;height:" + rect.height + "px;margin-top:" + rect.top + "px";
+
+            //div.innerHTML = "<div id=divhead " + sFilter + src + "\"'></div>";
+        }
+
+        var newFileLoadTmp = "<input type='file' name='mflFileUpload' id='mflFileUpload' onchange='AddFile(this)' class='mflFileUploadCss'>D:/temp.jpg</input>";
+
+        $("#fileForm").append(newFileLoadTmp);
+
+        $("#upfile").html("D:/temp.jpg");
+
+        ImgObj.src = file.value;
+    }
+
+    function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+        var param = { top: 0, left: 0, width: width, height: height };
+        if (width > maxWidth || height > maxHeight) {
+            rateWidth = width / maxWidth;
+            rateHeight = height / maxHeight;
+            if (rateWidth > rateHeight) {
+                param.width = maxWidth;
+                param.height = Math.round(height / rateWidth);
+            } else {
+                param.width = Math.round(width / rateHeight);
+                param.height = maxHeight;
+            }
+        }
+        param.left = Math.round((maxWidth - param.width) / 2);
+        param.top = Math.round((maxHeight - param.height) / 2);
+        return param;
+    }
+
+</script>

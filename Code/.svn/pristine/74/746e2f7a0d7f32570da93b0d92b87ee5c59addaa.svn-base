@@ -1,0 +1,136 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Practices.Unity;
+using Vlinker.SmartHome.WebService.Utils;
+using Newtonsoft.Json;
+using Vlinker.SmartHome.Model.DoorLock;
+using Vlinker.SmartHome.Service.Interface;
+using Vlinker.SmartHome.Model.DTO;
+using Vlinker.SmartHome.Util;
+
+namespace Vlinker.SmartHome.WebService.Controllers
+{
+    [Authorize]
+    public class DoorLockController : Controller
+    {
+        public const string BizCode = "DoorLock";
+
+        #region 远程开门
+        public ActionResult RemoteOpenDoor()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            //string userName = Request.LogonUserIdentity.Name;
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+
+            string result = service.RemoteOpenDoor(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+
+            return Content(result);
+        }
+        #endregion
+
+        #region 授权入住
+        public ActionResult CheckInAuth()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+            string result = service.CheckInAuth(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+            return Content(result);
+        }
+
+        #endregion 
+
+        #region 取消授权
+        public ActionResult DeleleAuth()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+            string result = service.DeleleAuth(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+            return Content(result);
+        }
+        #endregion
+
+        #region 设置密码
+        public ActionResult SetPassword()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+            string result = service.SetPassword(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+            return Content(result);
+        }
+
+        #endregion
+
+        #region 删除密码
+        public ActionResult DeletePassword()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+            string result = service.DeletePassword(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+            return Content(result);
+        }
+
+        #endregion
+
+        #region 同步房源
+        public ActionResult SynchronizeRoom()
+        {
+            string jsonData = Request.Params["jsonData"].ToString();
+            DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+            IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+
+            string result = service.SynchronizeRoom(operation);
+
+            if (result == "")
+            {
+                result = "{\"seccuss\":true,\"desc\":\"\"}";
+            }
+            return Content(result);
+        }
+        #endregion 
+    }
+}

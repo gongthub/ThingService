@@ -1,0 +1,205 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.Owin.Security.Infrastructure;
+using Microsoft.Practices.Unity;
+using Vlinker.SmartHome.WebService.Utils;
+using Newtonsoft.Json;
+using Vlinker.SmartHome.Model.DoorLock;
+using Vlinker.SmartHome.Service.Interface;
+using Vlinker.SmartHome.Model.DTO;
+using Vlinker.SmartHome.Util;
+
+namespace Vlinker.SmartHome.WebService.Controllers
+{
+    [Authorize]
+    public class DoorLockController : Controller
+    {
+        public const string BizCode = "DoorLock";
+
+        #region 远程开门
+        public ActionResult RemoteOpenDoor()
+        {
+            Result result = new Result() { success = true, desc = "" };
+
+            try
+            {               
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+                CommonUtil.Log.Info(string.Format("远程开门开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", Request.Params["LOGON_USER"].ToString(), operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+
+                result = service.RemoteOpenDoor(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("远程开门结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}",e.Message));
+                CommonUtil.Log.Info(string.Format("远程开门结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+        #endregion
+
+        #region 授权入住
+        public ActionResult CheckInAuth()
+        {
+            Result result = new Result() { success = true};
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("房门授权开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+                result = service.CheckInAuth(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("房门授权结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("房门授权结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+
+        #endregion 
+
+        #region 取消授权
+        public ActionResult DeleleAuth()
+        {
+            Result result = new Result() { success = true };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+                string userName = Request.Params["LOGON_USER"].ToString();
+
+                CommonUtil.Log.Info(string.Format("取消授权开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", userName, operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+                result = service.DeleleAuth(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("取消授权结束"));
+
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("取消授权结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+            return Json(result);
+        }
+        #endregion
+
+        #region 设置密码
+        public ActionResult SetPassword()
+        {
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+                CommonUtil.Log.Info(string.Format("密码设置开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", Request.Params["LOGON_USER"].ToString(), operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+                result = service.SetPassword(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("密码设置结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("密码设置结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+            return Json(result);
+        }
+
+        #endregion
+
+        #region 删除密码
+        public ActionResult DeletePassword()
+        {
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+                CommonUtil.Log.Info(string.Format("删除密码开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", Request.Params["LOGON_USER"].ToString(), operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+                result = service.DeletePassword(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("删除密码结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("删除密码结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+            return Json(result);
+        }
+
+        #endregion
+
+        #region 同步房源
+        public ActionResult SynchronizeRoom()
+        {
+            Result result = new Result() { success = true, desc = "" };
+            try
+            {
+                string jsonData = Request.Params["jsonData"].ToString();
+                DoorLockOperation operation = JsonConvert.DeserializeObject<DoorLockOperation>(jsonData);
+
+                CommonUtil.Log.Info(string.Format("同步房源开始"));
+                CommonUtil.Log.Info(string.Format("外部系统:{0} 供应商:{1} 请求数据:{2}", Request.Params["LOGON_USER"].ToString(), operation.SupplierCode, jsonData));
+
+                IDoorLockService service = UnityContainerUtil.ResolveInstance<IDoorLockService>(operation.SupplierCode + BizCode);
+                result = service.SynchronizeRoom(operation);
+
+                CommonUtil.Log.Info(string.Format(result.desc));
+                CommonUtil.Log.Info(string.Format("同步房源结束"));
+            }
+            catch (Exception e)
+            {
+                CommonUtil.Log.Info(string.Format("异常:{0}", e.Message));
+                CommonUtil.Log.Info(string.Format("同步房源结束"));
+                result = new Result() { success = false, desc = e.Message };
+            }
+
+            return Json(result);
+        }
+        #endregion 
+    }
+}

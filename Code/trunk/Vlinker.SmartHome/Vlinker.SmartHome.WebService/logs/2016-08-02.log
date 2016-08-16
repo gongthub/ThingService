@@ -1,0 +1,8 @@
+2016-08-02 17:19:40.0842 INFO 充值开始
+2016-08-02 17:19:40.1032 INFO 外部系统: 供应商:Joy 请求数据:{'SupplierCode':'Joy','meterNo':'201603162336','money':'10','access_token:':'HKta5ccC+UOByNa6U6Onfyo2cdIm3Qr2PHhVpEW/Ko/0Oy5B34XhSEAw/AAOlb4dAbhTzUGuLjfMkfgoKAUQdd28MQIc1DjiQWHCNh7CEYW4Y2FymIfoGqkkp3E4Nw=='}
+2016-08-02 17:21:01.5418 INFO 异常:从数据库中获取提供程序信息时出错。这可能是 Entity Framework 使用的连接字符串不正确导致的。有关详细信息，请查看内部异常并确保连接字符串正确。
+2016-08-02 17:21:01.5418 INFO 充值结束
+2016-08-02 17:22:00.1432 INFO 充值开始
+2016-08-02 17:22:00.1472 INFO 外部系统: 供应商:Joy 请求数据:{'SupplierCode':'Joy','meterNo':'201603162336','money':'10','access_token:':'H5hA4avteQr2sbcX8qQ6JDpPItV2sIFDA4fnwrvoWNWcqAwet41O1vcg/RI6EJ72YpDhkQ09S3w4bCJeCstV9/X4G+0Iq4a+eLqqPaUBHPVlHqi3StIkM9ftj9pCww=='}
+2016-08-02 17:24:53.9091 INFO 充值开始
+2016-08-02 17:24:53.9191 INFO 外部系统: 供应商:Joy 请求数据:{'SupplierCode':'Joy','meterNo':'201603162336','money':'10','access_token':'K0LnbD+ivZ4CrPU+oc9DcA64ckXLAZwGXzphtUoxMcwfvYwE2tv/9QUm63COkPH9GupMRniaCdGvuXoCIP8iu+5qxGNjcyiBNHY2l9X+Xgwdie7INj539kUliEOgjw=='}

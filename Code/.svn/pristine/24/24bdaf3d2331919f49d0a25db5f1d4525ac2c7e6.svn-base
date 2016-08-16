@@ -1,0 +1,303 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Newtonsoft.Json;
+using Vlinker.SmartHome.Service.Interface;
+using Microsoft.Practices.Unity;
+using Vlinker.SmartHome.Model.DoorLock;
+using Vlinker.SmartHome.Util;
+using Vlinker.SmartHome.Model.Base;
+using Vlinker.SmartHome.Model.DTO;
+using Vlinker.SmartHome.Model.Context;
+using Vlinker.Common.ApiInvoker;
+using Vlinker.SmartHome.Service.Abstract;
+
+namespace Vlinker.SmartHome.Service.Services
+{
+    public class YunyouDoorLockService : AcstractDoorLockService
+    {
+        [InjectionConstructor]
+        public YunyouDoorLockService() { }
+
+        public override string RemoteOpenDoor(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+
+            if (operation.AuthoredMobile == "")
+            {
+                result = "{\"success\":false,\"desc\":\"AuthoredMobile不能为空\"}";
+                return result;
+            }
+
+            string api = string.Format(@"/apartments/{0}/remote_action", operation.RoomCode);
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "partnerId", supplierConfig.PartnerId },
+                { "buildingId", operation.StoreCode},
+                { "doorType", operation.DoorType.ToString()},
+                { "code", operation.RoomCode},
+                { "door", operation.SubDoorCode},
+                { "operator", ParamHelper.HexMD5Code(operation.AuthoredMobile)}
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        public override string CheckInAuth(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+
+            if (operation.AuthoredMobile == "")
+            {
+                result = "{\"success\":false,\"desc\":\"AuthoredMobile不能为空\"}";
+                return result;
+            }
+
+            string api = string.Format(@"/apartments/{0}/auth", operation.RoomCode);
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "partnerId", supplierConfig.PartnerId },
+                { "buildingId", operation.StoreCode},
+                { "doorType", operation.DoorType.ToString()},
+                { "code", operation.RoomCode},
+                { "door", operation.SubDoorCode},
+                { "startTime", CommonUtil.GetTimeStamp(operation.StartTime)},
+                { "endTime",  CommonUtil.GetTimeStamp(operation.EndTime)},
+                { "author", supplierConfig.AuthCode},
+                { "authoredName", operation.AuthoredName},
+                { "authoredMobile", ParamHelper.HexMD5Code(operation.AuthoredMobile)}
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        public override string DeleleAuth(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+
+            if (operation.AuthoredMobile == "")
+            {
+                result = "{\"success\":false,\"desc\":\"AuthoredMobile不能为空\"}";
+                return result;
+            }
+
+            string api = string.Format(@"/apartments/{0}/delete_auth", operation.RoomCode);
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "partnerId", supplierConfig.PartnerId },
+                { "buildingId", operation.StoreCode},
+                { "doorType", operation.DoorType.ToString()},
+                { "code", operation.RoomCode},
+                { "door", operation.SubDoorCode},
+                { "authoredMobile", ParamHelper.HexMD5Code(operation.AuthoredMobile)},
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        public override string SetPassword(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+
+            if (operation.AuthoredMobile == "")
+            {
+                result = "{\"success\":false,\"desc\":\"AuthoredMobile不能为空\"}";
+                return result;
+            }
+
+            if (operation.Password == "")
+            {
+                result = "{\"success\":false,\"desc\":\"Password不能为空\"}";
+                return result;
+            }
+
+            string api = string.Format(@"/apartments/{0}/generate_password", operation.RoomCode);
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "partnerId", supplierConfig.PartnerId },
+                { "buildingId", operation.StoreCode},
+                { "doorType", operation.DoorType.ToString()},
+                { "code", operation.RoomCode},
+                { "door", operation.SubDoorCode},
+                { "startTime", CommonUtil.GetTimeStamp(operation.StartTime)},
+                { "endTime",  CommonUtil.GetTimeStamp(operation.EndTime)},
+                { "author", supplierConfig.AuthCode},
+                { "authoredName", operation.AuthoredName},
+                { "authoredMobile", ParamHelper.HexMD5Code(operation.AuthoredMobile)},
+                { "password", operation.Password}
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        public override string DeletePassword(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+            
+            if (operation.AuthoredMobile == "")
+            {
+                result = "{\"success\":false,\"desc\":\"AuthoredMobile不能为空\"}";
+                return result;
+            }
+
+            string api = string.Format(@"/apartments/{0}/remove_password", operation.RoomCode);
+
+            var requestParam = new Dictionary<string, string>
+            {
+                { "partnerId", supplierConfig.PartnerId },
+                { "buildingId", operation.StoreCode},
+                { "doorType", operation.DoorType.ToString()},
+                { "code", operation.RoomCode},
+                { "door", operation.SubDoorCode},
+                { "authoredMobile", ParamHelper.HexMD5Code(operation.AuthoredMobile)},
+            };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        public override string SynchronizeRoom(DoorLockOperation operation)
+        {
+            string result = "";
+
+            result = DataValidate(operation);
+            if (result != "") return result;
+
+            if (operation.RoomInfoList == null || operation.RoomInfoList.Count == 0)
+            {
+                result = "{\"success\":false,\"desc\":\"同步房源数据不能为空\"}";
+                return result;
+            }
+
+            SmartHomeDbContext context = new SmartHomeDbContext();
+            List<YunyouRoomInfo> apartmentList = new List<YunyouRoomInfo>();
+
+            for (int i = 0; i < operation.RoomInfoList.Count; i++)
+            {
+
+                RoomInfo roomInfo = operation.RoomInfoList[i];
+                YunyouRoomInfo apartment = new YunyouRoomInfo();
+
+                District district = context.Districts.Where(p => p.Name == roomInfo.DisName && p.City.Name == roomInfo.CityName && p.City.Province.Name == roomInfo.ProvinceName).FirstOrDefault();
+                if (district == null)
+                {
+                    result = "{\"success\":false,\"desc\":\"城市相关信息错误\"}";
+                    return result;
+                }
+
+                if (roomInfo.StoreCode == "")
+                {
+                    result = "{\"success\":false,\"desc\":\"StoreCode不能为空\"}";
+                    return result;
+                }
+                if (roomInfo.StoreName == "")
+                {
+                    result = "{\"success\":false,\"desc\":\"StoreName不能为空\"}";
+                    return result;
+                }
+                if (roomInfo.RoomCode == "")
+                {
+                    result = "{\"success\":false,\"desc\":\"RoomCode不能为空\"}";
+                    return result;
+                }
+
+                if (roomInfo.DoorCode == "")
+                {
+                    result = "{\"success\":false,\"desc\":\"DoorCode不能为空\"}";
+                    return result;
+                }
+
+                if (roomInfo.DoorName == "")
+                {
+                    result = "{\"success\":false,\"desc\":\"DoorName不能为空\"}";
+                    return result;
+                }
+
+                apartment.provinceId = district.City.Province.ID;
+                apartment.cityId = district.City.ID;
+                apartment.disId = district.ID;
+                apartment.buildingId = roomInfo.StoreCode;
+                apartment.buildingName = roomInfo.StoreName;
+                apartment.buildingNo = roomInfo.BuildingCode;
+                apartment.houseId = roomInfo.RoomCode;
+                apartment.code = roomInfo.DoorCode;
+                apartment.name = roomInfo.DoorName;
+                apartment.doorType = roomInfo.DoorType == "" ? "1" : roomInfo.DoorType;
+                apartment.door = apartment.doorType == "1" ? "" : roomInfo.SubDoorCode;
+                apartment.doorId = roomInfo.RoomCode + roomInfo.DoorCode;
+                apartment.unit = "";
+                apartment.floor = "";
+
+                apartmentList.Add(apartment);
+            }
+
+            string api = string.Format(@"/apartments/synchronize_apartments");
+
+            String apartmentJson = JsonConvert.SerializeObject(apartmentList).ToString();
+
+            var requestParam = new Dictionary<string, string>
+                {
+                    { "partnerId", supplierConfig.PartnerId },
+                    { "apartmentList", apartmentJson}
+                };
+
+            result = WebApiInvokePost(api, requestParam);
+
+            return result;
+        }
+
+        private string WebApiInvokePost(string api, Dictionary<string, string> requestParam)
+        {
+            string randomString = CommonUtil.GetRandomString(4, true);
+            string timestamp = CommonUtil.GetTimeStamp(DateTime.Now);
+            string token = CommonUtil.GetTokenKey(timestamp + supplierConfig.Secret + randomString);
+
+            requestParam.Add("nonstr", randomString);
+            requestParam.Add("timestamp", timestamp);
+            requestParam.Add("token", token);
+
+            string result = "";
+
+            try
+            {
+                WebApiInvoker ApiInvoker = new WebApiInvoker(supplierConfig.ServiceUrl);
+                result = ApiInvoker.InvokePostRequest(api, requestParam).Result.ToString();
+            }
+            catch (Exception e)
+            {
+                result = "{\"success\":false,\"desc\":\"请求失败：" + e.Message + "\"}";
+            }
+
+            return result;
+        }
+    }
+}

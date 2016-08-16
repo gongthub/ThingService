@@ -1,0 +1,34 @@
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\ResolveAssemblyReference.cache
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form1.resources
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+E:\Visual Studio 2008_CSharp\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\C#\obj\Debug\WindowsFormsApplication1.exe
+F:\标准接口\C#\obj\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\WindowsFormsApplication1.exe
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\bin\Debug\WindowsFormsApplication1.exe
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\bin\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\ResolveAssemblyReference.cache
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+F:\标准接口\prousb接口函数[del+vb]\proUSB接口函数[20111216中性版]\调用例程\C#\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\WindowsFormsApplication1.exe
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\ResolveAssemblyReference.cache
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\bin\Debug\WindowsFormsApplication1.exe
+F:\标准接口\K9-Delphi 7.0\K9接口函数\C#\bin\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\WindowsFormsApplication1.exe
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\bin\Debug\WindowsFormsApplication1.exe
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\bin\Debug\WindowsFormsApplication1.pdb
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\ResolveAssemblyReference.cache
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\WindowsFormsApplication1.Form1.resources
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+F:\标准接口\K9-Delphi 7.0\K9门锁接口函数例程\C#\obj\Debug\WindowsFormsApplication1.csproj.GenerateResource.Cache
